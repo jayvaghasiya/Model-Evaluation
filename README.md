@@ -29,4 +29,4 @@
       Run Command: python calculate_states.py
 
 
-## Note: You can change the batch size as per you gpu memory.
+Note: You can change the batch size as per you gpu memory.
