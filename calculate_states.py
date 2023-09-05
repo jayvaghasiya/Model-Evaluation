@@ -16,8 +16,8 @@ MINOVERLAP = 0.3  # default value (defined in the PASCAL VOC2012 challenge)
 
 
 class MAP:
-    def __init__(self, args):
-        self.gt_path = "./ground-truth"
+    def __init__(self,ground_truth):
+        self.gt_path = ground_truth
         self.pred_path = "./predicted"
         self.tmp_files_path = "./tmp_files"
         self.results_files_path = "./results"
@@ -27,12 +27,12 @@ class MAP:
 
         # self.predicted_files_list.sort()
         self.draw_plot = False
-        if args.ignore is None:
-            args.ignore = []
+        # if args.ignore is None:
+            # args.ignore = []
 
         self.confidence_list = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
         output_list = []
-        self.args = args
+        # # self.args = args
         for conf in self.confidence_list:
             self.gt_counter_per_class = {}
             self.create_directories()
@@ -82,10 +82,10 @@ class MAP:
             file_id = txt_file.split(".txt", 1)[0]
             file_id = os.path.basename(os.path.normpath(file_id))
             # check if there is a correspondent predicted objects file
-            if not os.path.exists(f"{self.pred_path}/0.1/" + file_id + ".txt"):
-                error_msg = "Error. File not found: predicted/" + file_id + ".txt\n"
-                error_msg += "(You can avoid this error message by running extra/intersect-gt-and-pred.py)"
-                error(error_msg)
+            #if not os.path.exists(f"{self.pred_path}/0.1/" + file_id + ".txt"):
+             #   error_msg = "Error. File not found: predicted/" + file_id + ".txt\n"
+              #  error_msg += "(You can avoid this error message by running extra/intersect-gt-and-pred.py)"
+               # error(error_msg)
             lines_list = file_lines_to_list(txt_file)
             # create ground-truth dictionary
             bounding_boxes = []
@@ -110,7 +110,7 @@ class MAP:
                     error_msg += "by running the script \"remove_space.py\" or \"rename_class.py\" in the \"extra/\" folder."
                     error(error_msg)
                 # check if class is in the ignore list, if yes skip
-                if class_name in args.ignore:
+                # if class_name in args.ignore:
                     continue
                 bbox = left + " " + top + " " + right + " " + bottom
                 if is_difficult:
@@ -327,8 +327,8 @@ class MAP:
             for line in lines_list:
                 class_name = line.split()[0]
                 # check if class is in the ignore list, if yes skip
-                if class_name in args.ignore:
-                    continue
+                # if class_name in args.ignore:
+                    # continue
                 # count that object
                 if class_name in pred_counter_per_class:
                     pred_counter_per_class[class_name] += 1
@@ -449,18 +449,8 @@ class MAP:
         return output_data
 
 
-def main(args):
-    MAP(args)
+def calculate_performance(ground_truth="./ground-truth"):
+    MAP(ground_truth)
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-na', '--no-animation', help="no animation is shown.", action="store_true")
-    parser.add_argument('-np', '--no-plot', help="no plot is shown.", action="store_true")
-    parser.add_argument('-q', '--quiet', help="minimalistic console output.", action="store_true")
-    # argparse receiving list of classes to be ignored
-    parser.add_argument('-i', '--ignore', nargs='+', type=str, help="ignore a list of classes.")
-    # argparse receiving list of classes with specific IoU
-    parser.add_argument('--set-class-iou', nargs='+', type=str, help="set IoU for a specific class.")
-    args = parser.parse_args()
-    main(args)
+ 
