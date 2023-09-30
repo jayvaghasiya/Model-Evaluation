@@ -67,7 +67,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run YOLO inference with different confidence thresholds.")
     parser.add_argument("--model", required=True, help="Path to YOLO model")
     parser.add_argument("--data", required=True, help="Path to YOLO data configuration file")
-    parser.add_argument("--batch", default=-1, help="Batch size as per you gpu memory")
+    parser.add_argument("--batch", default=10, help="Batch size as per you gpu memory")
     args = parser.parse_args()
 
     try:
@@ -83,7 +83,7 @@ if __name__ == "__main__":
         print("*************************************************************************")
         for conf_threshold in tqdm(conf_thresholds):
             res =run_yolo_inference(args.model, args.data, args.batch, conf_threshold)
-            path = res[-1].replace("Results saved to ","")
+            path = res[-2].replace("Results saved to ","")
             path = re.sub(r'\x1b\[\d+m', '', path)
             paths.append(path)
             # print(str(path))
