@@ -7,14 +7,12 @@
 
   1. Installing Dependencies:
 
-      Run this command :
      ```bash
      pip install -r requirements.txt
      ```
 
   3. Running Evaluation script:
 
-     Run this command :
      ```bash
      python main.py --model /path/to/model --data dataset.yaml --batch 25
      ```
