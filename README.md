@@ -7,13 +7,17 @@
 
   1. Installing Dependencies:
 
-      Run this command : ```bash
-     pip install -r requirements.txt```
+      Run this command :
+     ```bash
+     pip install -r requirements.txt
+     ```
 
   3. Running Evaluation script:
 
-     Run this command : ```bash
-     python main.py --model /path/to/model --data dataset.yaml --batch 25```
+     Run this command :
+     ```bash
+     python main.py --model /path/to/model --data dataset.yaml --batch 25
+     ```
 
      * In this command you need to pass the path to your custom yolo model using "--model" argument.
      * And you need to pass the yaml file of your dataset using  "--data" argument.
